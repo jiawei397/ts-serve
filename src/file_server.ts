@@ -1,9 +1,8 @@
 import {
   serveDir,
-  type ServeDirOptions,
   serveFile,
-  type ServeFileOptions,
-} from "https://deno.land/std@0.177.0/http/file_server.ts";
+} from "../deps.ts";
+import type { ServeDirOptions, ServeFileOptions } from "../types.ts";
 
 import { transpileResponse } from "../utils/transpile_response.ts";
 
@@ -24,7 +23,7 @@ export async function serveFileWithTs(
   options?: ServeFileOptions,
 ): Promise<Response> {
   const response = await serveFile(request, filePath, options);
-  return await transpileResponse(response, request.url, filePath);
+  return await transpileResponse(response, request.url, filePath, options);
 }
 
 /**
@@ -43,7 +42,7 @@ export async function serveDirWithTs(
   options?: ServeDirOptions,
 ): Promise<Response> {
   const response = await serveDir(request, options);
-  return await transpileResponse(response, request.url);
+  return await transpileResponse(response, request.url, undefined, options);
 }
 
-export { type ServeDirOptions, type ServeFileOptions };
+

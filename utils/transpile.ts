@@ -1,4 +1,4 @@
-import { emit } from "https://deno.land/x/emit@0.15.0/mod.ts";
+// import { emit } from "https://deno.land/x/emit@0.15.0/mod.ts";
 
 /** File type. You can pass it as an option to the transpile function to tell it what media type the source is. */
 export enum MediaType {
@@ -31,31 +31,31 @@ const contentType = {
  * ));
  * ```
  */
-export async function transpile(
-  content: string,
-  targetUrl: URL,
-  mediaType: MediaType,
-) {
-  const targetUrlStr = targetUrl.toString();
-  const result = await emit(targetUrl, {
-    load(specifier) {
-      if (specifier !== targetUrlStr) {
-        return Promise.resolve({
-          kind: "module",
-          specifier,
-          content: "",
-          headers: { "content-type": "application/javascript; charset=utf-8" },
-        });
-      }
-      return Promise.resolve({
-        kind: "module",
-        specifier,
-        content,
-        headers: {
-          "content-type": contentType[mediaType],
-        },
-      });
-    },
-  });
-  return result[targetUrlStr];
-}
+// export async function transpile(
+//   content: string,
+//   targetUrl: URL,
+//   mediaType: MediaType,
+// ) {
+//   const targetUrlStr = targetUrl.toString();
+//   const result = await emit(targetUrl, {
+//     load(specifier) {
+//       if (specifier !== targetUrlStr) {
+//         return Promise.resolve({
+//           kind: "module",
+//           specifier,
+//           content: "",
+//           headers: { "content-type": "application/javascript; charset=utf-8" },
+//         });
+//       }
+//       return Promise.resolve({
+//         kind: "module",
+//         specifier,
+//         content,
+//         headers: {
+//           "content-type": contentType[mediaType],
+//         },
+//       });
+//     },
+//   });
+//   return result[targetUrlStr];
+// }

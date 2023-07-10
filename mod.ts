@@ -1,7 +1,7 @@
 export * from "./src/oak.ts";
 export * from "./src/file_server.ts";
-export * from "./utils/transpile.ts";
-import { MediaType, transpile } from "./utils/transpile.ts";
+import { instantiate } from "./deps.ts";
+export { type ServeDirOptions, type ServeFileOptions } from "./types.ts";
 
 /**
  * Calling this function will load the wasm file used in the deno_emit of the dependency.
@@ -20,6 +20,8 @@ import { MediaType, transpile } from "./utils/transpile.ts";
  */
 export async function fourceInstantiateWasm() {
   try {
-    await transpile("", new URL("file:///src"), MediaType.TypeScript);
-  } catch (_) { /* ignore error*/ }
+    await instantiate();
+  } catch (e) {
+    console.error("fourceInstantiateWasm error", e);
+  }
 }
